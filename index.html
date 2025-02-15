@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Screen and Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .loading {
+            display: none;
+            font-size: 24px;
+            color: #1e90ff;
+            margin-top: 20%;
+        }
+        .table-container {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        table {
+            width: 60%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #e0f7fa;
+        }
+        th, td {
+            border: 2px solid #1e90ff;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #1e90ff;
+            color: white;
+        }
+        .heading {
+            color: #1e90ff;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        /* Button styles */
+        button {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #4682b4;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background-color: #5a9bd5;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enter pin number</h1>
+    <input type="text" id="userCode" placeholder="Enter code here" />
+    <button onclick="validateCode()">Submit</button>
+
+    <div id="loading" class="loading">
+        Loading...
+    </div>
+
+    <div id="tableContainer" class="table-container">
+        <div class="heading" id="tableHeading">Result</div>
+        <table>
+            <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Result</th>
+            </tr>
+            <tr>
+                <td>Heat power engg</td>
+                <td>W</td>
+                <td>W</td>
+            </tr>
+            <tr>
+                <td>W</td>
+                <td>W</td>
+                <td>W</td>
+            </tr>
+            <tr>
+                <td>W</td>
+                <td>W</td>
+                <td>W</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function validateCode() {
+            const correctCode = "21061-me-013";  // The code you want the user to enter
+            const userCode = document.getElementById('userCode').value;
+
+            if (userCode === correctCode) {
+                // Show loading screen
+                document.getElementById('loading').style.display = 'block';
+
+                // Hide table initially
+                document.getElementById('tableContainer').style.display = 'none';
+
+                // Wait for 2 seconds and then display the table
+                setTimeout(function() {
+                    document.getElementById('loading').style.display = 'none';  // Hide loading text
+                    document.getElementById('tableContainer').style.display = 'block';  // Show table
+                }, 2000);
+            } else {
+                alert("Incorrect code! Try again.");
+            }
+        }
+    </script>
+
+</body>
+</html>
