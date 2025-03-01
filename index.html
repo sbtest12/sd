@@ -1,131 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Screen and Table</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .loading {
-            display: none;
-            font-size: 24px;
-            color: #1e90ff;
-            margin-top: 20%;
-        }
-        .table-container {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-        }
-        table {
-            width: 60%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background-color: #e0f7fa;
-        }
-        th, td {
-            border: 2px solid #1e90ff;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #1e90ff;
-            color: white;
-        }
-        .heading {
-            color: #1e90ff;
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        /* Button styles */
-        button {
-            background-color: #1e90ff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, transform 0.3s;
-            margin-top: 20px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIPLOMA RESULTS</title>
+  <style>
+    /* Global styling */
+    html {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      height: 100%;
+      background-color: #f0f0f0;
+    }
 
-        button:hover {
-            background-color: #4682b4;
-            transform: translateY(-2px);
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
 
-        button:active {
-            background-color: #5a9bd5;
-            transform: translateY(0);
-        }
-    </style>
+    /* Loader styling */
+    #loader {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 24px;
+      color: #fff;
+      background-color: #00bcd4;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Placeholder for code input */
+    #input-container {
+      text-align: center;
+    }
+
+    input[type="text"] {
+      font-size: 18px;
+      padding: 10px;
+      border: 2px solid #00bcd4;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      width: 250px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #0097a7;
+    }
+
+    /* Button styling */
+    .btn {
+      background-color: #00bcd4;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #0097a7;
+    }
+
+    /* Table styling */
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin-top: 20px;
+      background-color: #e0f7fa;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    td,
+    th {
+      padding: 15px;
+      border: 1px solid #726E6D;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #004d5e;
+      color: white;
+    }
+
+    tbody>tr:nth-child(odd) {
+      background-color: #b2ebf2; /* Light cyan for odd rows */
+    }
+
+    tbody>tr:nth-child(even) {
+      background-color: white; /* White for even rows */
+    }
+
+    .footer {
+      font-weight: bold;
+    }
+
+    .result {
+      font-weight: bold;
+      color: red;
+    }
+
+    /* Center-aligning the table */
+    .table-container {
+      display: none;
+      width: 80%;
+      margin-top: 20px;
+    }
+
+    /* Centering content */
+    .content {
+      text-align: center;
+    }
+
+    /* User info styling */
+    .user-info {
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #004d5e;
+    }
+  </style>
 </head>
+
 <body>
-
-    <h1>Enter pin number</h1>
-    <input type="text" id="userCode" placeholder="Enter code here" />
-    <button onclick="validateCode()">Submit</button>
-
-    <div id="loading" class="loading">
-        Loading...
+  <div class="content">
+    <!-- Placeholder to input code -->
+    <div id="input-container">
+      <label for="studentCode">Enter pin no:-</label><br>
+      <input type="text" id="studentCode" placeholder="Enter pin no">
+      <br><br>
+      <button class="btn" onclick="validateCode()">Submit</button>
     </div>
 
-    <div id="tableContainer" class="table-container">
-        <div class="heading" id="tableHeading">Result</div>
-        <table>
-            <tr>
-                <th>Subject</th>
-                <th>Marks</th>
-                <th>Result</th>
-            </tr>
-            <tr>
-                <td>Heat power engg</td>
-                <td>W</td>
-                <td>W</td>
-            </tr>
-            <tr>
-                <td>W</td>
-                <td>W</td>
-                <td>W</td>
-            </tr>
-            <tr>
-                <td>W</td>
-                <td>W</td>
-                <td>W</td>
-            </tr>
-        </table>
+    <!-- Loader screen -->
+    <div id="loader">
+      <p>Loading...</p>
     </div>
 
-    <script>
-        function validateCode() {
-            const correctCode = "21061-me-013";  // The code you want the user to enter
-            const userCode = document.getElementById('userCode').value;
+    <!-- Table container -->
+    <div class="table-container" id="tableContainer">
+      <!-- User information header -->
+      <div class="user-info" id="userInfo">
+        <p>SYED YASEER ALI RAYAN</p>
+        <p>Pin No: 21061-ME-013</p>
+        <p>College:Q.QGPT</p>
+      </div>
 
-            if (userCode === correctCode) {
-                // Show loading screen
-                document.getElementById('loading').style.display = 'block';
+      <!-- Results Table -->
+      <table>
+        <thead>
+          <tr>
+            <th colspan="3">Course</th>
+            <th rowspan="2">Semester</th>
+            <th rowspan="2">Marks</th>
+            <th colspan="2">Result</th>
+          </tr>
+          <tr>
+            <th>Code</th>
+            <th colspan="2">Name</th>
+            <th>P/F</th>
+            <th>Credits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ME-404</td>
+            <td colspan="2">HEAT POWER ENGINEERING</td>
+            <td>4TH</td>
+            <td class="result">13.5</td>
+            <td class="result">F</td>
+            <td>0.0</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="footer">Total</td>
+            <td>23</td>
+            <td colspan="2">-</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="footer">GPA</td>
+            <td colspan="3">-</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
 
-                // Hide table initially
-                document.getElementById('tableContainer').style.display = 'none';
+  <script>
+    function validateCode() {
+      const codeInput = document.getElementById("studentCode").value;
+      const validCodes = ["21061-ME-013", "21061-me-013"];
 
-                // Wait for 2 seconds and then display the table
-                setTimeout(function() {
-                    document.getElementById('loading').style.display = 'none';  // Hide loading text
-                    document.getElementById('tableContainer').style.display = 'block';  // Show table
-                }, 2000);
-            } else {
-                alert("Incorrect code! Try again.");
-            }
-        }
-    </script>
+      // Check if the entered code is valid
+      if (validCodes.includes(codeInput)) {
+        // Show loader for 5 seconds
+        document.getElementById("loader").style.display = "block";
+        document.getElementById("input-container").style.display = "none";
 
+        setTimeout(function () {
+          // Hide loader and show table
+          document.getElementById("loader").style.display = "none";
+          document.getElementById("tableContainer").style.display = "block";
+        }, 5000); // 5 seconds delay
+      } else {
+        alert("InvalID.");
+      }
+    }
+  </script>
 </body>
+
 </html>
