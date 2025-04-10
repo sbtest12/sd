@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DIPLOMA RESULTS</title>
   <style>
-    /* Global styling */
     html {
       font-family: Arial, sans-serif;
       font-size: 18px;
@@ -24,7 +23,6 @@
       background-color: #f0f0f0;
     }
 
-    /* Loader styling */
     #loader {
       display: none;
       position: absolute;
@@ -40,7 +38,6 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    /* Placeholder for code input */
     #input-container {
       text-align: center;
     }
@@ -59,7 +56,6 @@
       border-color: #0097a7;
     }
 
-    /* Button styling */
     .btn {
       background-color: #00bcd4;
       color: white;
@@ -75,7 +71,6 @@
       background-color: #0097a7;
     }
 
-    /* Table styling */
     table {
       border-collapse: collapse;
       width: 80%;
@@ -98,11 +93,11 @@
     }
 
     tbody>tr:nth-child(odd) {
-      background-color: #b2ebf2; /* Light cyan for odd rows */
+      background-color: #b2ebf2;
     }
 
     tbody>tr:nth-child(even) {
-      background-color: white; /* White for even rows */
+      background-color: white;
     }
 
     .footer {
@@ -114,31 +109,34 @@
       color: red;
     }
 
-    /* Center-aligning the table */
     .table-container {
       display: none;
       width: 80%;
       margin-top: 20px;
     }
 
-    /* Centering content */
     .content {
       text-align: center;
     }
 
-    /* User info styling */
     .user-info {
       margin-bottom: 20px;
       font-size: 20px;
       font-weight: bold;
       color: #004d5e;
     }
+
+    #countdownTimer {
+      font-weight: bold;
+      color: #d32f2f;
+      margin-top: 20px;
+      font-size: 20px;
+    }
   </style>
 </head>
 
 <body>
   <div class="content">
-    <!-- Placeholder to input code -->
     <div id="input-container">
       <label for="studentCode">Enter pin no:-</label><br>
       <input type="text" id="studentCode" placeholder="Enter pin no">
@@ -146,21 +144,17 @@
       <button class="btn" onclick="validateCode()">Submit</button>
     </div>
 
-    <!-- Loader screen -->
     <div id="loader">
       <p>Loading...</p>
     </div>
 
-    <!-- Table container -->
     <div class="table-container" id="tableContainer">
-      <!-- User information header -->
       <div class="user-info" id="userInfo">
         <p>SYED YASEER ALI RAYAN</p>
         <p>Pin No: 21061-ME-013</p>
-        <p>College:Q.QGPT</p>
+        <p>College: Q.QGPT</p>
       </div>
 
-      <!-- Results Table -->
       <table>
         <thead>
           <tr>
@@ -198,6 +192,11 @@
           </tr>
         </tfoot>
       </table>
+
+      <!-- Countdown timer display -->
+      <div id="countdownTimer">
+        This result is expected to be released within: <span id="timer"></span>
+      </div>
     </div>
   </div>
 
@@ -206,20 +205,52 @@
       const codeInput = document.getElementById("studentCode").value;
       const validCodes = ["21061-ME-013", "21061-me-013"];
 
-      // Check if the entered code is valid
       if (validCodes.includes(codeInput)) {
-        // Show loader for 5 seconds
         document.getElementById("loader").style.display = "block";
         document.getElementById("input-container").style.display = "none";
 
         setTimeout(function () {
-          // Hide loader and show table
           document.getElementById("loader").style.display = "none";
           document.getElementById("tableContainer").style.display = "block";
-        }, 5000); // 5 seconds delay
+          startCountdown();
+        }, 5000);
       } else {
         alert("InvalID.");
       }
+    }
+
+    function startCountdown() {
+      const timerDisplay = document.getElementById("timer");
+      const tableContainer = document.getElementById("tableContainer");
+
+      // Get current time in UTC
+      const nowUTC = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
+
+      // IST offset in ms
+      const istOffset = 5.5 * 60 * 60 * 1000;
+
+      // Set deadline to tomorrow 10:00 AM IST
+      const now = new Date(nowUTC + istOffset);
+      const deadline = new Date(now);
+      deadline.setDate(deadline.getDate() + 1);
+      deadline.setHours(10, 0, 0, 0); // 10:00 AM IST
+
+      const interval = setInterval(() => {
+        const currentUTC = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
+        const currentIST = new Date(currentUTC + istOffset);
+        const remaining = deadline.getTime() - currentIST.getTime();
+
+        if (remaining <= 0) {
+          clearInterval(interval);
+          tableContainer.style.display = "none";
+        } else {
+          const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((remaining / (1000 * 60)) % 60);
+          const seconds = Math.floor((remaining / 1000) % 60);
+
+          timerDisplay.textContent = `${hours}h ${minutes}m ${seconds}s`;
+        }
+      }, 1000);
     }
   </script>
 </body>
