@@ -1,24 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Under Maintenance</title>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diploma-supply results</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      width: 120px;
+      margin-top: 30px;
+      filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3));
+    }
+
+    .container {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    #loader {
+      margin: 40px auto;
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #007bff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 80%;
+      max-width: 500px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    #marksheet {
+      display: none;
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .status {
+      font-weight: bold;
+      color: red;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Logo -->
+  <img src="https://www.sbtet.telangana.gov.in/assets/img/custom/sb-1.jpg" alt="Logo" class="logo">
+
+  <div class="container">
+    <!-- Input Form -->
+    <input type="text" id="rollInput" placeholder="Enter Pin Number">
+    <button onclick="checkRoll()">Submit</button>
+
+    <!-- Loader -->
+    <div id="loader"></div>
+
+    <!-- Mark Sheet Table -->
+    <div id="marksheet">
+      <div class="info">
+        <p><strong>Name:</strong>Syed yaseer ali rayan</p>
+        <p><strong>Pin No:</strong>20061-me-013</p>
+        <p><strong>Subject:</strong> Heat power engg</p>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Subject</th>
+            <th>Marks</th>
+            <th>Credits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Heat power engg</td>
+            <td>W</td>
+            <td>W</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="status">WITH HELD</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <script>
-    window.onload = function () {
-      Swal.fire({
-        title: 'Under Maintenance',
-        text: 'The website is currently under maintanance.',
-        icon: 'info',
-        allowOutsideClick: false,   // Prevent background click
-        allowEscapeKey: false,      // Prevent closing with ESC
-        allowEnterKey: false,       // Prevent Enter key closing
-        showConfirmButton: false,   // No button at all
-        backdrop: true              // Dimmed background
-      });
-    };
+    function checkRoll() {
+      const roll = document.getElementById('rollInput').value.trim();
+      const loader = document.getElementById('loader');
+      const marksheet = document.getElementById('marksheet');
+
+      if (roll === '21061-me-013') {
+        loader.style.display = 'block';
+        marksheet.style.display = 'none';
+
+        setTimeout(() => {
+          loader.style.display = 'none';
+          marksheet.style.display = 'block';
+        }, 5000);
+      } else {
+        alert('Invalid Roll Number');
+      }
+    }
   </script>
+
 </body>
 </html>
